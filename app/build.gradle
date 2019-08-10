@@ -13,6 +13,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'TMDB_API_KEY', '\"c84a5e1904e3abf2e375c344710c4bf7\"'
+        buildConfigField 'String', 'TMDB_API_HOST', '\"https://api.themoviedb.org/3/\"'
+        buildConfigField 'String', 'TMDB_API_HOST_IMAGES', '\"https://image.tmdb.org/t/p/w500/\"'
     }
     buildTypes {
         release {
@@ -59,7 +63,7 @@ dependencies {
     implementation applicationDependencies.archComponents
     implementation applicationDependencies.cardView
     implementation applicationDependencies.recyclerView
-//    implementation applicationDependencies.design
+    implementation applicationDependencies.design
     implementation applicationDependencies.androidAnnotations
     implementation applicationDependencies.glide
     implementation applicationDependencies.dagger
