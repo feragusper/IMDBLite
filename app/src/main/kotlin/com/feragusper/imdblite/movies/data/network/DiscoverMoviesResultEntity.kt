@@ -1,4 +1,4 @@
-package com.feragusper.imdblite.movies.data
+package com.feragusper.imdblite.movies.data.network
 
 data class DiscoverMoviesResultEntity(private val results: List<MovieEntity>) {
     fun toMovies() = results.map { movieEntity -> movieEntity.toMovie() }

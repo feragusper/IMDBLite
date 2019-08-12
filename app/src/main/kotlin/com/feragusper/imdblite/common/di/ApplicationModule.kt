@@ -3,7 +3,7 @@ package com.feragusper.imdblite.common.di
 import android.content.Context
 import com.feragusper.imdblite.AndroidApplication
 import com.feragusper.imdblite.BuildConfig
-import com.feragusper.imdblite.movies.data.MoviesRepository
+import com.feragusper.imdblite.movies.data.repository.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -43,5 +43,5 @@ class ApplicationModule(private val application: AndroidApplication) {
 
     @Provides
     @Singleton
-    fun provideMoviesRepository(dataSource: MoviesRepository.Network): MoviesRepository = dataSource
+    fun provideMoviesRepository(dataSource: MoviesRepository.MoviesRepositoryImpl): MoviesRepository = dataSource
 }

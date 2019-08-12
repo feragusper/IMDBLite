@@ -2,7 +2,7 @@ package com.feragusper.imdblite.movies.interactor
 
 import com.feragusper.imdblite.common.interactor.UseCase
 import com.feragusper.imdblite.common.interactor.UseCase.None
-import com.feragusper.imdblite.movies.data.MoviesRepository
+import com.feragusper.imdblite.movies.data.repository.MoviesRepository
 import com.feragusper.imdblite.movies.domain.Movie
 import javax.inject.Inject
 

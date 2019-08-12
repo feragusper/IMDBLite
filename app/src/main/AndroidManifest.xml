@@ -30,6 +30,12 @@
                 android:name=".movies.android.MoviesActivity"
                 android:label="@string/movies_screen_title"/>
 
+        <activity
+                android:name=".movies.android.MovieDetailsActivity"
+                android:label="@string/movie_details_screen_title"
+                android:theme="@style/AppTheme.Translucent">
+        </activity>
+
     </application>
 
 </manifest>

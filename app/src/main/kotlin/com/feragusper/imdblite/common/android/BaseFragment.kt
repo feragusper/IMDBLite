@@ -56,4 +56,9 @@ abstract class BaseFragment : Fragment() {
         )
         snackBar.show()
     }
+
+    internal fun notify(@StringRes message: Int) =
+        Snackbar.make(viewContainer, message, Snackbar.LENGTH_SHORT).show()
+
+    internal fun firstTimeCreated(savedInstanceState: Bundle?) = savedInstanceState == null
 }

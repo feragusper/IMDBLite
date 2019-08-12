@@ -9,7 +9,7 @@ import com.feragusper.imdblite.common.android.BaseFragment
 import com.feragusper.imdblite.common.exception.Failure
 import com.feragusper.imdblite.common.extension.*
 import com.feragusper.imdblite.common.navigation.Navigator
-import com.feragusper.imdblite.movies.MovieView
+import com.feragusper.imdblite.movies.domain.Movie
 import com.feragusper.imdblite.movies.exception.MovieFailure
 import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
@@ -43,10 +43,10 @@ class MoviesFragment : BaseFragment() {
 
 
     private fun initializeView() {
-        movieList.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        movieList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         movieList.adapter = moviesAdapter
         moviesAdapter.clickListener = { movie, navigationExtras ->
-            navigator.showMovieDetails(activity!!, movie, navigationExtras)
+            navigator.showMovieDetails(activity!!, movie.id, navigationExtras)
         }
     }
 
@@ -57,7 +57,7 @@ class MoviesFragment : BaseFragment() {
         moviesViewModel.loadMovies()
     }
 
-    private fun renderMoviesList(movies: List<MovieView>?) {
+    private fun renderMoviesList(movies: List<Movie>?) {
         moviesAdapter.collection = movies.orEmpty()
         hideProgress()
     }

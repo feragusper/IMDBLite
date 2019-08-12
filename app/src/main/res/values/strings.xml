@@ -9,4 +9,10 @@
     <string name="failure_movies_list_unavailable">Movies Unavailable.</string>
     <string name="failure_movie_non_existent">Movie Not Existent.</string>
     <string name="movies_screen_title">Movies</string>
+    <string name="movie_details_screen_title">Movie Details</string>
+    <string name="movie_details_synopsis">Synopsis</string>
+    <string name="movie_details_release_date">Release date</string>
+    <string name="movie_details_rating">Rating</string>
+    <string name="movie_details_year">Year</string>
+    <string name="movie_details_content_rating">Content Rating</string>
 </resources>

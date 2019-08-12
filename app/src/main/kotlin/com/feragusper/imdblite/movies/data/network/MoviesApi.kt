@@ -1,4 +1,4 @@
-package com.feragusper.imdblite.movies.data
+package com.feragusper.imdblite.movies.data.network
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -10,5 +10,8 @@ internal interface MoviesApi {
     }
 
     @GET(PATH_DISCOVER_MOVIES)
-    fun movies(@Query("api_key") apiKey: String): Call<DiscoverMoviesResultEntity>
+    fun moviesOfCurrentYear(
+        @Query("api_key") apiKey: String,
+        @Query("primary_release_year") primaryReleaseYear: String): Call<DiscoverMoviesResultEntity>
+
 }
