@@ -43,7 +43,7 @@ class MoviesFragment : BaseFragment() {
 
 
     private fun initializeView() {
-        movieList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        movieList.layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.movie_list_columns), StaggeredGridLayoutManager.VERTICAL)
         movieList.adapter = moviesAdapter
         moviesAdapter.clickListener = { movie, navigationExtras ->
             navigator.showMovieDetails(activity!!, movie.id, navigationExtras)
