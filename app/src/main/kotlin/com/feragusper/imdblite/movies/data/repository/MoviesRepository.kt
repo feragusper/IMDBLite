@@ -3,7 +3,7 @@ package com.feragusper.imdblite.movies.data.repository
 import com.feragusper.imdblite.movies.extension.MovieId
 import com.feragusper.imdblite.common.exception.Failure
 import com.feragusper.imdblite.common.functional.Either
-import com.feragusper.imdblite.movies.data.network.DiscoverMoviesResultEntity
+import com.feragusper.imdblite.movies.data.network.ListOfMoviesResultEntity
 import com.feragusper.imdblite.movies.data.network.MoviesService
 import com.feragusper.imdblite.movies.domain.Movie
 import com.feragusper.imdblite.movies.exception.MovieFailure
@@ -13,6 +13,7 @@ import javax.inject.Inject
 interface MoviesRepository {
     fun movies(): Either<Failure, List<Movie>>
     fun movieDetails(movieId: MovieId): Either<Failure, Movie>
+    fun searchMovies(query: String?): Either<Failure, List<Movie>>
 
     class MoviesRepositoryImpl
     @Inject constructor(
@@ -26,7 +27,7 @@ interface MoviesRepository {
                 false -> {
                     val result = request(
                         service.movies(), { it.toMovies() },
-                        DiscoverMoviesResultEntity.empty()
+                        ListOfMoviesResultEntity.empty()
                     )
 
                     when (result) {
@@ -36,6 +37,19 @@ interface MoviesRepository {
                     result
                 }
             }
+        }
+
+        override fun searchMovies(query: String?): Either<Failure, List<Movie>> {
+            val result = request(
+                service.searchMovies(query), { it.toMovies() },
+                ListOfMoviesResultEntity.empty()
+            )
+
+            when (result) {
+                is Either.Right -> moviesCache.putAll(result.b)
+            }
+
+            return result
         }
 
         override fun movieDetails(movieId: MovieId): Either<Failure, Movie> {

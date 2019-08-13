@@ -15,4 +15,7 @@
     <string name="movie_details_rating">Rating</string>
     <string name="movie_details_year">Year</string>
     <string name="movie_details_content_rating">Content Rating</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search movie</string>
+    <string name="search_movies_result_screen_title">Search Movies Result</string>
 </resources>

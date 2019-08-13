@@ -1,4 +1,4 @@
-package com.feragusper.imdblite.movies.android
+package com.feragusper.imdblite.movies.android.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.feragusper.imdblite.common.android.BaseViewModel

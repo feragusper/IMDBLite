@@ -7,11 +7,16 @@ import retrofit2.http.Query
 internal interface MoviesApi {
     companion object {
         private const val PATH_DISCOVER_MOVIES = "discover/movie"
+        private const val PATH_SEARCH_MOVIES = "search/movie"
     }
 
     @GET(PATH_DISCOVER_MOVIES)
-    fun moviesOfCurrentYear(
+    fun moviesByYear(
         @Query("api_key") apiKey: String,
-        @Query("primary_release_year") primaryReleaseYear: String): Call<DiscoverMoviesResultEntity>
+        @Query("primary_release_year") primaryReleaseYear: String): Call<ListOfMoviesResultEntity>
 
+    @GET(PATH_SEARCH_MOVIES)
+    fun searchMovies(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String?): Call<ListOfMoviesResultEntity>
 }

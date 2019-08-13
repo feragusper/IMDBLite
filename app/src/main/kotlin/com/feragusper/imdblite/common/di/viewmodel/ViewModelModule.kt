@@ -2,8 +2,9 @@ package com.feragusper.imdblite.common.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.feragusper.imdblite.movies.android.MovieDetailsViewModel
-import com.feragusper.imdblite.movies.android.MoviesViewModel
+import com.feragusper.imdblite.movies.android.viewmodel.MovieDetailsViewModel
+import com.feragusper.imdblite.movies.android.viewmodel.MoviesViewModel
+import com.feragusper.imdblite.movies.android.viewmodel.SearchMoviesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -25,4 +26,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieDetailsViewModel::class)
     abstract fun bindsMovieDetailsViewModel(movieDetailsViewModel: MovieDetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchMoviesViewModel::class)
+    abstract fun bindsSearchMoviesViewModel(searchMoviesViewModel: SearchMoviesViewModel): ViewModel
 }

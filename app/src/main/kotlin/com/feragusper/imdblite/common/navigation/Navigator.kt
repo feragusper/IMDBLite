@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.FragmentActivity
-import com.feragusper.imdblite.movies.android.MovieDetailsActivity
-import com.feragusper.imdblite.movies.android.MoviesActivity
+import com.feragusper.imdblite.movies.android.activity.MovieDetailsActivity
+import com.feragusper.imdblite.movies.android.activity.MoviesActivity
 import javax.inject.Inject
 import javax.inject.Singleton
 

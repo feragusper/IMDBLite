@@ -1,4 +1,4 @@
-package com.feragusper.imdblite.movies.android
+package com.feragusper.imdblite.movies.android.fragment
 
 import android.annotation.SuppressLint
 import com.feragusper.imdblite.movies.extension.MovieId
@@ -9,6 +9,8 @@ import com.feragusper.imdblite.R
 import com.feragusper.imdblite.common.android.BaseFragment
 import com.feragusper.imdblite.common.exception.Failure
 import com.feragusper.imdblite.common.extension.*
+import com.feragusper.imdblite.movies.android.MovieDetailsAnimator
+import com.feragusper.imdblite.movies.android.viewmodel.MovieDetailsViewModel
 import com.feragusper.imdblite.movies.domain.Movie
 import com.feragusper.imdblite.movies.exception.MovieFailure
 import kotlinx.android.synthetic.main.fragment_movie_details.*

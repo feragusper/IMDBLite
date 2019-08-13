@@ -27,15 +27,37 @@
         </activity>
 
         <activity
-                android:name=".movies.android.MoviesActivity"
-                android:label="@string/movies_screen_title"/>
+                android:name=".movies.android.activity.MoviesActivity"
+                android:label="@string/movies_screen_title">
 
-        <activity
-                android:name=".movies.android.MovieDetailsActivity"
-                android:label="@string/movie_details_screen_title"
-                android:theme="@style/AppTheme.Translucent">
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/searchable"/>
+
+            <meta-data
+                    android:name="android.app.default_searchable"
+                    android:value=".movies.android.activity.SearchMoviesResultActivity"/>
         </activity>
 
+        <activity android:name=".movies.android.activity.SearchMoviesResultActivity"
+                  android:label="@string/search_movies_result_screen_title">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <meta-data android:name="android.app.searchable"
+                       android:resource="@xml/searchable"/>
+
+            <meta-data
+                    android:name="android.app.default_searchable"
+                    android:value=".movies.android.activity.SearchMoviesResultActivity"/>
+
+        </activity>
+
+        <activity
+                android:name=".movies.android.activity.MovieDetailsActivity"
+                android:label="@string/movie_details_screen_title"
+                android:theme="@style/AppTheme.Translucent" />
     </application>
 
 </manifest>
