@@ -3,6 +3,8 @@ package com.feragusper.imdblite.movies.data.repository
 import com.feragusper.imdblite.movies.extension.MovieId
 import android.content.Context
 import android.util.LruCache
+import com.feragusper.imdblite.common.exception.Failure
+import com.feragusper.imdblite.common.functional.Either
 import com.feragusper.imdblite.movies.domain.Movie
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,6 +22,10 @@ import javax.inject.Singleton
 class MovieCache @Inject constructor(val context: Context) {
 
     private val cache = LruCache<MovieId, Movie>(1000)
+
+    val hasMovies: Boolean
+        get() = cache.size() != 0
+
     fun put(movie: Movie) {
         cache.put(movie.id, movie)
     }
@@ -34,5 +40,13 @@ class MovieCache @Inject constructor(val context: Context) {
         movies.forEach { movie ->
             put(movie)
         }
+    }
+
+    fun getAll(): Either<Failure, List<Movie>> {
+        val movies = mutableListOf<Movie>()
+        cache.snapshot().keys.forEach { movieId ->
+            movies.add(cache.get(movieId))
+        }
+        return Either.Right(movies)
     }
 }

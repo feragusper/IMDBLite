@@ -24,23 +24,40 @@
                 app:layout_constraintEnd_toEndOf="parent"
         />
 
+        <View android:layout_width="0dp" android:layout_height="0dp"
+              android:background="@color/translucentBackground_AA"
+              app:layout_constraintTop_toTopOf="@id/movieTitle"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"/>
+
         <TextView
                 android:id="@+id/movieTitle"
                 style="@style/MovieListText"
                 app:layout_constraintBottom_toTopOf="@id/movieRating"
                 app:layout_constraintStart_toStartOf="@id/moviePoster"
-                android:background="@color/translucentBackground_AA"
-                android:lines="2"
+                tools:text="Back to the Future"
+                android:lines="1"
                 android:ellipsize="end"
         />
 
         <TextView
                 android:id="@+id/movieRating"
                 style="@style/MovieListText"
-                android:background="@color/translucentBackground_AA"
+                android:layout_width="0dp"
                 app:layout_constraintBottom_toBottomOf="@id/moviePoster"
-                app:layout_constraintStart_toStartOf="@id/movieTitle"
+                app:layout_constraintStart_toEndOf="@id/movieRatingIcon"
+                tools:text="10"
                 tools:ignore="RtlHardcoded"/>
+
+        <ImageView android:id="@+id/movieRatingIcon"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_star"
+                   app:layout_constraintBottom_toBottomOf="@id/movieRating"
+                   app:layout_constraintTop_toTopOf="@id/movieRating"
+                   app:layout_constraintStart_toStartOf="@id/movieTitle"
+                   tools:ignore="ContentDescription"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

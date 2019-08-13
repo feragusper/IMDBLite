@@ -21,23 +21,27 @@ interface MoviesRepository {
     ) : MoviesRepository {
 
         override fun movies(): Either<Failure, List<Movie>> {
-            val result = request(
-                service.movies(), { it.toMovies() },
-                DiscoverMoviesResultEntity.empty()
-            )
+            return when (moviesCache.hasMovies) {
+                true -> moviesCache.getAll()
+                false -> {
+                    val result = request(
+                        service.movies(), { it.toMovies() },
+                        DiscoverMoviesResultEntity.empty()
+                    )
 
-            when (result) {
-                is Either.Right -> moviesCache.putAll(result.b)
+                    when (result) {
+                        is Either.Right -> moviesCache.putAll(result.b)
+                    }
+
+                    result
+                }
             }
-
-            return result
         }
 
         override fun movieDetails(movieId: MovieId): Either<Failure, Movie> {
             val movie = moviesCache.get(movieId)
             return when (movie) {
                 is Movie -> Either.Right(movie)
-                null -> Either.Left(MovieFailure.NonExistentMovie)
                 else -> Either.Left(MovieFailure.NonExistentMovie)
             }
         }
