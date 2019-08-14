@@ -16,7 +16,7 @@ import com.feragusper.imdblite.movies.exception.MovieFailure
 import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
 
-class MoviesFragment : BaseFragment() {
+class LatestMoviesFragment : BaseFragment() {
 
     @Inject
     lateinit var navigator: Navigator
@@ -47,8 +47,11 @@ class MoviesFragment : BaseFragment() {
     private fun initializeView() {
         movieList.layoutManager = StaggeredGridLayoutManager(resources.getInteger(R.integer.movie_list_columns), StaggeredGridLayoutManager.VERTICAL)
         movieList.adapter = moviesAdapter
-        moviesAdapter.clickListener = { movie, navigationExtras ->
+        moviesAdapter.itemClickListener = { movie, navigationExtras ->
             navigator.showMovieDetails(activity!!, movie.id, navigationExtras)
+        }
+        moviesAdapter.favoriteButtonClickListener = { movie, favorite ->
+            moviesViewModel.saveFavorite(movie, favorite)
         }
     }
 

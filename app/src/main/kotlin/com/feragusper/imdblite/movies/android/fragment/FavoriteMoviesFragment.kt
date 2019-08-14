@@ -1,6 +1,5 @@
 package com.feragusper.imdblite.movies.android.fragment
 
-import android.app.SearchManager
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
@@ -11,20 +10,20 @@ import com.feragusper.imdblite.common.exception.Failure
 import com.feragusper.imdblite.common.extension.*
 import com.feragusper.imdblite.common.navigation.Navigator
 import com.feragusper.imdblite.movies.android.MoviesAdapter
-import com.feragusper.imdblite.movies.android.viewmodel.SearchMoviesViewModel
+import com.feragusper.imdblite.movies.android.viewmodel.MoviesViewModel
 import com.feragusper.imdblite.movies.domain.Movie
 import com.feragusper.imdblite.movies.exception.MovieFailure
 import kotlinx.android.synthetic.main.fragment_movies.*
 import javax.inject.Inject
 
-class SearchMoviesResultFragment : BaseFragment() {
+class FavoriteMoviesFragment : BaseFragment() {
 
     @Inject
     lateinit var navigator: Navigator
     @Inject
     lateinit var moviesAdapter: MoviesAdapter
 
-    private lateinit var searchMoviesViewModel: SearchMoviesViewModel
+    private lateinit var favoriteMoviesViewModel: MoviesViewModel
 
     override fun layoutId() = R.layout.fragment_movies
 
@@ -32,8 +31,8 @@ class SearchMoviesResultFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
 
-        searchMoviesViewModel = viewModel(viewModelFactory) {
-            observe(movies, ::renderMoviesList)
+        favoriteMoviesViewModel = viewModel(viewModelFactory) {
+            observe(favoriteMovies, ::renderMoviesList)
             failure(failure, ::handleFailure)
         }
     }
@@ -41,7 +40,7 @@ class SearchMoviesResultFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
-        loadSearchMoviesResult()
+        loadMoviesList()
     }
 
 
@@ -51,13 +50,16 @@ class SearchMoviesResultFragment : BaseFragment() {
         moviesAdapter.itemClickListener = { movie, navigationExtras ->
             navigator.showMovieDetails(activity!!, movie.id, navigationExtras)
         }
+        moviesAdapter.favoriteButtonClickListener = { movie, favorite ->
+            favoriteMoviesViewModel.saveFavorite(movie, favorite)
+        }
     }
 
-    private fun loadSearchMoviesResult() {
+    private fun loadMoviesList() {
         emptyView.invisible()
         movieList.visible()
         showProgress()
-        searchMoviesViewModel.searchMovies(activity?.intent?.getStringExtra(SearchManager.QUERY))
+        favoriteMoviesViewModel.loadMovies()
     }
 
     private fun renderMoviesList(movies: List<Movie>?) {
@@ -77,6 +79,6 @@ class SearchMoviesResultFragment : BaseFragment() {
         movieList.invisible()
         emptyView.visible()
         hideProgress()
-        notifyWithAction(message, R.string.action_refresh, ::loadSearchMoviesResult)
+        notifyWithAction(message, R.string.action_refresh, ::loadMoviesList)
     }
 }

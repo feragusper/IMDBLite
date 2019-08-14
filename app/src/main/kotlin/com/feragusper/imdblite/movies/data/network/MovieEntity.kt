@@ -14,6 +14,18 @@ data class MovieEntity(
     private val vote_count: String,
     private val adult: Boolean
 ) {
+    fun toLatestMovie() = Movie(
+        id = id,
+        poster = BuildConfig.TMDB_API_HOST_IMAGES + poster_path,
+        title = title,
+        overview = overview,
+        releaseDate = release_date,
+        voteAverage = vote_average,
+        voteCount = vote_count,
+        contentRating = adult.toContentRating(),
+        latest = true
+    )
+
     fun toMovie() = Movie(
         id = id,
         poster = BuildConfig.TMDB_API_HOST_IMAGES + poster_path,

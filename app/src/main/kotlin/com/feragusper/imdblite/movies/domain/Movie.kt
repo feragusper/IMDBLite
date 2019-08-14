@@ -11,7 +11,9 @@ data class Movie(
     val releaseDate: String,
     val voteAverage: String,
     val voteCount: String,
-    val contentRating: String
+    val contentRating: String,
+    var favorite: Boolean = false,
+    val latest: Boolean = false
 ) {
     enum class ContentRating {
         ADULT,

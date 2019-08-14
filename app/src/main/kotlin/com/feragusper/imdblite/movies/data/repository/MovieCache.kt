@@ -42,11 +42,11 @@ class MovieCache @Inject constructor(val context: Context) {
         }
     }
 
-    fun getAll(): Either<Failure, List<Movie>> {
+    fun getAll(): List<Movie> {
         val movies = mutableListOf<Movie>()
         cache.snapshot().keys.forEach { movieId ->
             movies.add(cache.get(movieId))
         }
-        return Either.Right(movies)
+        return movies
     }
 }

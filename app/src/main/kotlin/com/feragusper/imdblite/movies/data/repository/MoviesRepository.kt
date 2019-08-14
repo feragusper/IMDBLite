@@ -1,5 +1,6 @@
 package com.feragusper.imdblite.movies.data.repository
 
+import android.util.Log
 import com.feragusper.imdblite.movies.extension.MovieId
 import com.feragusper.imdblite.common.exception.Failure
 import com.feragusper.imdblite.common.functional.Either
@@ -14,6 +15,8 @@ interface MoviesRepository {
     fun movies(): Either<Failure, List<Movie>>
     fun movieDetails(movieId: MovieId): Either<Failure, Movie>
     fun searchMovies(query: String?): Either<Failure, List<Movie>>
+    fun saveFavorite(movie: Movie, favorite: Boolean): Either<Failure, Unit>
+    fun favoriteMovies(): Either<Failure, List<Movie>>
 
     class MoviesRepositoryImpl
     @Inject constructor(
@@ -21,12 +24,19 @@ interface MoviesRepository {
         private val moviesCache: MovieCache
     ) : MoviesRepository {
 
+        override fun saveFavorite(movie: Movie, favorite: Boolean): Either<Failure, Unit> {
+            movie.favorite = favorite
+            moviesCache.put(movie)
+            Log.i("favorite repository", "movie is ${movie.title} and favorite is ${movie.favorite}")
+            return Either.Right(Unit)
+        }
+
         override fun movies(): Either<Failure, List<Movie>> {
             return when (moviesCache.hasMovies) {
-                true -> moviesCache.getAll()
+                true -> Either.Right(moviesCache.getAll().filter { movie -> movie.latest })
                 false -> {
                     val result = request(
-                        service.movies(), { it.toMovies() },
+                        service.movies(), { listOfMoviesResultEntity -> listOfMoviesResultEntity.toLatestMovies() },
                         ListOfMoviesResultEntity.empty()
                     )
 
@@ -41,7 +51,7 @@ interface MoviesRepository {
 
         override fun searchMovies(query: String?): Either<Failure, List<Movie>> {
             val result = request(
-                service.searchMovies(query), { it.toMovies() },
+                service.searchMovies(query), { listOfMoviesResultEntity -> listOfMoviesResultEntity.toMovies() },
                 ListOfMoviesResultEntity.empty()
             )
 
@@ -50,6 +60,10 @@ interface MoviesRepository {
             }
 
             return result
+        }
+
+        override fun favoriteMovies(): Either<Failure, List<Movie>> {
+            return Either.Right(moviesCache.getAll().filter { movie -> movie.favorite })
         }
 
         override fun movieDetails(movieId: MovieId): Either<Failure, Movie> {
