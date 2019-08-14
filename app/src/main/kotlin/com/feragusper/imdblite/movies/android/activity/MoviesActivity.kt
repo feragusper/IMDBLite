@@ -9,20 +9,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import com.feragusper.imdblite.R
+import com.feragusper.imdblite.common.android.BaseActivity
 import com.feragusper.imdblite.movies.android.adapter.MoviesAndFavoritesPagerAdapter
 import kotlinx.android.synthetic.main.activity_movies.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity : BaseActivity() {
 
     companion object {
         fun callingIntent(context: Context) = Intent(context, MoviesActivity::class.java)
     }
 
+    override fun makeContentView(): Int {
+        return R.layout.activity_movies
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_movies)
 
         val fragmentAdapter = MoviesAndFavoritesPagerAdapter(supportFragmentManager)
         main_view_pager.adapter = fragmentAdapter

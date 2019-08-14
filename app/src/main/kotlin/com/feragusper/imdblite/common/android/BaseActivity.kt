@@ -17,9 +17,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
+        setContentView(makeContentView())
         setSupportActionBar(toolbar as Toolbar)
         addFragment(savedInstanceState)
+    }
+
+    internal open fun makeContentView(): Int {
+        return R.layout.activity_layout
     }
 
     override fun onBackPressed() {
@@ -27,12 +31,18 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    private fun addFragment(savedInstanceState: Bundle?) =
-        savedInstanceState ?: supportFragmentManager.inTransaction {
-            add(
-                R.id.fragmentContainer, fragment()
-            )
+    private fun addFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            val fragmentToAdd = fragment()
+            if (fragmentToAdd != null) {
+                supportFragmentManager.inTransaction {
+                    add(
+                        R.id.fragmentContainer, fragmentToAdd
+                    )
+                }
+            }
         }
+    }
 
-    abstract fun fragment(): BaseFragment
+    internal open fun fragment(): BaseFragment? = null
 }
