@@ -27,7 +27,10 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        (supportFragmentManager.findFragmentById(R.id.fragmentContainer) as BaseFragment).onBackPressed()
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+        if (fragment != null) {
+            (fragment as BaseFragment).onBackPressed()
+        }
         super.onBackPressed()
     }
 
