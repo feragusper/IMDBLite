@@ -1,5 +1,7 @@
 # IMDB Lite
 
+> :warning: **This is actually not using IMDB but TMDB, so we can call it TMDBLite :)**
+
 Android application that allow the users to see a list of the latest movies with the basic info and it's able to
 display the details of every movie. In addition the user can mark movies as favorite and see all those favorite movies in separate list.
 
